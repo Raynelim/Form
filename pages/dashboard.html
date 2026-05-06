@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/form.css">
+</head>
+<body>
+<div class="app">
+
+  <div class="sbo" id="sbo" onclick="closeSB()"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">
+      <div class="wm">Form</div>
+      <div class="tg">Self-Improvement RPG</div>
+    </div>
+    <nav class="sb-nav">
+      <a class="nl active" href="dashboard.html"  ><span class="nl-ic">⌂</span>Home</a>
+      <a class="nl"        href="stat.html"        ><span class="nl-ic">◈</span>Stats</a>
+      <a class="nl"        href="log.html"         ><span class="nl-ic">⊕</span>Log Session</a>
+      <a class="nl"        href="quests.html"      ><span class="nl-ic">◻</span>Quests</a>
+      <a class="nl"        href="profile.html"     ><span class="nl-ic">◉</span>Profile</a>
+      <a class="nl"        href="leaderboard.html" ><span class="nl-ic">△</span>Leaderboard</a>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-player">
+        <div class="sb-av">◈</div>
+        <div>
+          <div class="sb-name">ALEX_01</div>
+          <div class="sb-lvl">LVL 15 · The Polyglot</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:14px">
+        <button class="hburg" onclick="toggleSB()">
+          <span></span><span></span><span></span>
+        </button>
+        <span class="tb-title">Dashboard</span>
+      </div>
+      <div class="tb-right">
+        <span class="streak-b">◊ 7</span>
+        <span class="lbl">streak</span>
+      </div>
+    </header>
+
+    <div class="ca">
+
+      <!-- Hero card -->
+      <div class="dh">
+        <div class="dh-ghost">15</div>
+        <div class="dh-lvl">LVL 15</div>
+        <div class="dh-handle">player</div>
+        <div class="dh-name">Alex</div>
+        <div class="tp">
+          <div class="tp-dot"></div>
+          <span class="tp-txt">The Polyglot</span>
+        </div>
+      </div>
+
+      <div class="div" style="margin-top:0"></div>
+
+      <!-- Stats -->
+      <div class="sh">
+        <span class="lbl">stats</span>
+        <span class="lbl" style="color:var(--t4)">click to expand</span>
+      </div>
+      <div class="sg" id="statsGrid"></div>
+
+      <div class="div"></div>
+
+      <!-- Quests -->
+      <div class="sh">
+        <span class="lbl">today's quests</span>
+        <span id="qCount" style="font-family:var(--font-m);font-size:9px;color:var(--gold)"></span>
+      </div>
+      <div id="qList"></div>
+      <div style="text-align:right;margin-top:8px">
+        <span class="lbl" style="color:var(--gold-d)">+200 XP bonus if all complete</span>
+      </div>
+
+    </div><!-- /ca -->
+  </div><!-- /main -->
+
+  <nav class="bnav">
+    <div class="bnav-inner">
+      <a class="bi active" href="dashboard.html"  ><span class="bi-ic">⌂</span><span>Home</span></a>
+      <a class="bi"        href="stat.html"        ><span class="bi-ic">◈</span><span>Stats</span></a>
+      <a class="bi"        href="log.html"         ><span class="bi-ic">⊕</span><span>Log</span></a>
+      <a class="bi"        href="quests.html"      ><span class="bi-ic">◻</span><span>Quests</span></a>
+      <a class="bi"        href="profile.html"     ><span class="bi-ic">◉</span><span>Profile</span></a>
+      <a class="bi"        href="leaderboard.html" ><span class="bi-ic">△</span><span>Ranks</span></a>
+    </div>
+  </nav>
+
+</div>
+
+<script src="../js/form.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    renderDash();
+  });
+  function toggleSB() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sbo').classList.toggle('open');
+  }
+  function closeSB() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sbo').classList.remove('open');
+  }
+</script>
+</body>
+</html>

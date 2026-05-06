@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form — Log Session</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/form.css">
+</head>
+<body>
+<div class="app">
+
+  <div class="sbo" id="sbo" onclick="closeSB()"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">
+      <div class="wm">Form</div>
+      <div class="tg">Self-Improvement RPG</div>
+    </div>
+    <nav class="sb-nav">
+      <a class="nl"        href="dashboard.html"  ><span class="nl-ic">⌂</span>Home</a>
+      <a class="nl"        href="stat.html"        ><span class="nl-ic">◈</span>Stats</a>
+      <a class="nl active" href="log.html"         ><span class="nl-ic">⊕</span>Log Session</a>
+      <a class="nl"        href="quests.html"      ><span class="nl-ic">◻</span>Quests</a>
+      <a class="nl"        href="profile.html"     ><span class="nl-ic">◉</span>Profile</a>
+      <a class="nl"        href="leaderboard.html" ><span class="nl-ic">△</span>Leaderboard</a>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-player">
+        <div class="sb-av">◈</div>
+        <div>
+          <div class="sb-name">ALEX_01</div>
+          <div class="sb-lvl">LVL 15 · The Polyglot</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:14px">
+        <button class="hburg" onclick="toggleSB()">
+          <span></span><span></span><span></span>
+        </button>
+        <span class="tb-title">Log Session</span>
+      </div>
+      <div class="tb-right">
+        <span class="streak-b">◊ 7</span>
+        <span class="lbl">streak</span>
+      </div>
+    </header>
+
+    <div class="ca">
+
+      <a class="back" id="lgBack" href="stat.html">← Stats</a>
+      <div class="pg-title">Log Session</div>
+
+      <div class="lg-grid">
+
+        <!-- Left column -->
+        <div class="lg-col">
+
+          <span class="lbl" style="display:block;margin-bottom:10px">stat</span>
+          <div class="stabs" id="lgTabs"></div>
+
+          <span class="lbl" style="display:block;margin-bottom:8px">activity name</span>
+          <input class="ifield" id="actIn" placeholder="e.g. Language Study" type="text"
+                 oninput="updateXP()">
+
+          <span class="lbl" style="display:block;margin-bottom:6px">duration</span>
+          <div class="dur-d">
+            <span class="dur-n" id="durN">45</span>
+            <span class="dur-u">min</span>
+          </div>
+          <input class="dslider" id="durS" type="range" min="5" max="120" value="45">
+          <div style="display:flex;justify-content:space-between;margin-bottom:20px">
+            <span class="lbl">5</span>
+            <span class="lbl">30</span>
+            <span class="lbl">60</span>
+            <span class="lbl">90</span>
+            <span class="lbl">120</span>
+          </div>
+
+        </div>
+
+        <!-- Right column -->
+        <div class="lg-col">
+
+          <span class="lbl" style="display:block;margin-bottom:10px">verification · multiplier</span>
+          <div class="trow" id="tRow"></div>
+
+          <div class="xpp">
+            <div>
+              <span class="lbl" style="display:block;margin-bottom:4px">estimated xp</span>
+              <span class="lbl" id="xpBrk"></span>
+            </div>
+            <span class="xppn" id="xpNum">+198</span>
+          </div>
+
+          <button class="cta" id="lgCta" onclick="submitLog()">LOG SESSION</button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <nav class="bnav">
+    <div class="bnav-inner">
+      <a class="bi"        href="dashboard.html"  ><span class="bi-ic">⌂</span><span>Home</span></a>
+      <a class="bi"        href="stat.html"        ><span class="bi-ic">◈</span><span>Stats</span></a>
+      <a class="bi active" href="log.html"         ><span class="bi-ic">⊕</span><span>Log</span></a>
+      <a class="bi"        href="quests.html"      ><span class="bi-ic">◻</span><span>Quests</span></a>
+      <a class="bi"        href="profile.html"     ><span class="bi-ic">◉</span><span>Profile</span></a>
+      <a class="bi"        href="leaderboard.html" ><span class="bi-ic">△</span><span>Ranks</span></a>
+    </div>
+  </nav>
+
+</div>
+
+<script src="../js/form.js"></script>
+<script>
+  // Read stat from URL param
+  const params = new URLSearchParams(window.location.search);
+  logStat = params.get('stat') || 'INT';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderLog();
+    document.getElementById('durS').addEventListener('input', onSliderInput);
+  });
+
+  function submitLog() {
+    const activity = document.getElementById('actIn').value.trim();
+    if (!activity) return;
+    // In a real app: persist to storage, then redirect
+    window.location.href = 'stat.html?stat=' + logStat;
+  }
+
+  function toggleSB() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sbo').classList.toggle('open');
+  }
+  function closeSB() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sbo').classList.remove('open');
+  }
+</script>
+</body>
+</html>

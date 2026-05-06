@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/form.css">
+</head>
+<body>
+<div class="app">
+
+  <div class="sbo" id="sbo" onclick="closeSB()"></div>
+
+  <!-- ── Sidebar (shared across all pages) ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">
+      <div class="wm">Form</div>
+      <div class="tg">Self-Improvement RPG</div>
+    </div>
+    <nav class="sb-nav">
+      <a class="nl" data-screen="dashboard" href="dashboard.html"><span class="nl-ic">⌂</span>Home</a>
+      <a class="nl" data-screen="stat"      href="stat.html"     ><span class="nl-ic">◈</span>Stats</a>
+      <a class="nl" data-screen="log"       href="log.html"      ><span class="nl-ic">⊕</span>Log Session</a>
+      <a class="nl" data-screen="quests"    href="quests.html"   ><span class="nl-ic">◻</span>Quests</a>
+      <a class="nl" data-screen="profile"   href="profile.html"  ><span class="nl-ic">◉</span>Profile</a>
+      <a class="nl" data-screen="leaderboard" href="leaderboard.html"><span class="nl-ic">△</span>Leaderboard</a>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-player">
+        <div class="sb-av">◈</div>
+        <div>
+          <div class="sb-name">ALEX_01</div>
+          <div class="sb-lvl">LVL 15 · The Polyglot</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <div class="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:14px">
+        <button class="hburg" onclick="toggleSB()">
+          <span></span><span></span><span></span>
+        </button>
+        <span class="tb-title"><!-- set per page --></span>
+      </div>
+      <div class="tb-right">
+        <span class="streak-b">◊ 7</span>
+        <span class="lbl">streak</span>
+      </div>
+    </header>
+
+    <div class="ca">
+      <!-- PAGE CONTENT GOES HERE -->
+    </div>
+  </div>
+
+  <!-- ── Bottom nav ── -->
+  <nav class="bnav">
+    <div class="bnav-inner">
+      <a class="bi" href="dashboard.html"   data-screen="dashboard"  ><span class="bi-ic">⌂</span><span>Home</span></a>
+      <a class="bi" href="stat.html"        data-screen="stat"       ><span class="bi-ic">◈</span><span>Stats</span></a>
+      <a class="bi" href="log.html"         data-screen="log"        ><span class="bi-ic">⊕</span><span>Log</span></a>
+      <a class="bi" href="quests.html"      data-screen="quests"     ><span class="bi-ic">◻</span><span>Quests</span></a>
+      <a class="bi" href="profile.html"     data-screen="profile"    ><span class="bi-ic">◉</span><span>Profile</span></a>
+      <a class="bi" href="leaderboard.html" data-screen="leaderboard"><span class="bi-ic">△</span><span>Ranks</span></a>
+    </div>
+  </nav>
+
+</div>
+<!-- scripts loaded per page -->
+</body>
+</html>

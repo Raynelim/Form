@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form — Leaderboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/form.css">
+</head>
+<body>
+<div class="app">
+
+  <div class="sbo" id="sbo" onclick="closeSB()"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">
+      <div class="wm">Form</div>
+      <div class="tg">Self-Improvement RPG</div>
+    </div>
+    <nav class="sb-nav">
+      <a class="nl"        href="dashboard.html"  ><span class="nl-ic">⌂</span>Home</a>
+      <a class="nl"        href="stat.html"        ><span class="nl-ic">◈</span>Stats</a>
+      <a class="nl"        href="log.html"         ><span class="nl-ic">⊕</span>Log Session</a>
+      <a class="nl"        href="quests.html"      ><span class="nl-ic">◻</span>Quests</a>
+      <a class="nl"        href="profile.html"     ><span class="nl-ic">◉</span>Profile</a>
+      <a class="nl active" href="leaderboard.html" ><span class="nl-ic">△</span>Leaderboard</a>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-player">
+        <div class="sb-av">◈</div>
+        <div>
+          <div class="sb-name">ALEX_01</div>
+          <div class="sb-lvl">LVL 15 · The Polyglot</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:14px">
+        <button class="hburg" onclick="toggleSB()">
+          <span></span><span></span><span></span>
+        </button>
+        <span class="tb-title">Leaderboard</span>
+      </div>
+      <div class="tb-right">
+        <span class="streak-b">◊ 7</span>
+        <span class="lbl">streak</span>
+      </div>
+    </header>
+
+    <div class="ca">
+
+      <div class="pg-title">Leaderboard</div>
+
+      <!-- Tabs -->
+      <div class="tabrow">
+        <button class="tabbtn active" onclick="lbTab(this)">Global</button>
+        <button class="tabbtn"        onclick="lbTab(this)">Friends</button>
+        <button class="tabbtn"        onclick="lbTab(this)">Weekly</button>
+      </div>
+
+      <!-- Podium (rendered by JS) -->
+      <div class="pod" id="podium"></div>
+
+      <!-- Ranked rows (rendered by JS) -->
+      <div id="lbRows"></div>
+
+    </div>
+  </div>
+
+  <nav class="bnav">
+    <div class="bnav-inner">
+      <a class="bi"        href="dashboard.html"  ><span class="bi-ic">⌂</span><span>Home</span></a>
+      <a class="bi"        href="stat.html"        ><span class="bi-ic">◈</span><span>Stats</span></a>
+      <a class="bi"        href="log.html"         ><span class="bi-ic">⊕</span><span>Log</span></a>
+      <a class="bi"        href="quests.html"      ><span class="bi-ic">◻</span><span>Quests</span></a>
+      <a class="bi"        href="profile.html"     ><span class="bi-ic">◉</span><span>Profile</span></a>
+      <a class="bi active" href="leaderboard.html" ><span class="bi-ic">△</span><span>Ranks</span></a>
+    </div>
+  </nav>
+
+</div>
+
+<script src="../js/form.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    renderLB();
+  });
+
+  function toggleSB() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sbo').classList.toggle('open');
+  }
+  function closeSB() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sbo').classList.remove('open');
+  }
+</script>
+</body>
+</html>
