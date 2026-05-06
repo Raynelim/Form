@@ -3,36 +3,40 @@
    tokens.css
 ═══════════════════════════════════════════════ */
 :root {
-  /* Backgrounds — lifted from near-black to a visible dark slate */
-  --bg:      #1a1d27;
-  --s1:      #212533;
-  --s2:      #292e40;
-  --s3:      #32384f;
-  --s4:      #3c4260;
-  --border:  #454c68;
-  --div:     #2c3145;
+  /* Backgrounds — clean, light, wellness-first */
+  --bg:      #F7F8F5;
+  --s1:      #FFFFFF;
+  --s2:      #EEF3EE;
+  --s3:      #E4EBE4;
+  --s4:      #D7E2D7;
+  --border:  #E4EBE4;
+  --div:     #E4EBE4;
 
-  /* Text — brighter primaries, more contrast on secondary */
-  --t1:      #eeeef3;
-  --t2:      #9a9ab0;
-  --t3:      #5c5e78;
-  --t4:      #3a3d55;
+  /* Text — calm, high contrast */
+  --t1:      #1A1E1A;
+  --t2:      #6B7A6B;
+  --t3:      #A3AFA3;
+  --t4:      #C2CFC2;
 
-  /* Gold accent — slightly warmer */
-  --gold:    #d4ad52;
-  --gold-d:  #6b5420;
-  --gold-bg: #221a0c;
+  /* Primary & secondary accent */
+  --primary: #5C8A6E;
+  --primary-hover: #3D6B52;
 
-  /* Stat colours — slightly brighter, dims are lighter too */
-  --str:     #e85c5c; --str-d: #4a1f1f;
-  --end:     #55b4df; --end-d: #14384e;
-  --int:     #a98aee; --int-d: #2c1f52;
-  --vit:     #55cc82; --vit-d: #123822;
-  --wlt:     #d4ad52; --wlt-d: #38280e;
+  /* Gold accent — premium */
+  --gold:    #B8922A;
+  --gold-d:  #8C6E1A;
+  --gold-bg: #FBF5E6;
+
+  /* Stat colours — desaturated, light tints */
+  --str:     #C95C5C; --str-d: #FDF0F0;
+  --end:     #4A9FC9; --end-d: #F0F7FA;
+  --int:     #8A7FC9; --int-d: #F6F3FA;
+  --vit:     #5C8A6E; --vit-d: #EEF3EE;
+  --wlt:     #B8922A; --wlt-d: #FBF5E6;
 
   /* Leaderboard medals */
-  --silver:  #9a9ab0;
-  --bronze:  #c4843a;
+  --silver:  #C2CFC2;
+  --bronze:  #C4A484;
 
   /* Typography */
   --font-d: 'Barlow Condensed', sans-serif;
@@ -56,6 +60,17 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
+
+/* Card/Surface shadow for light UI */
+.card, .dh, .sdh, .phc, .gc, .gsc, .tc, .xpp, .clm, .sbanner, .qcard, .pcard, .lbav, .sidebar, .main, .topbar, .bnav {
+  box-shadow: 0 2px 12px 0 rgba(92, 138, 110, 0.06), 0 1.5px 4px 0 rgba(60, 107, 82, 0.03);
+}
+
+/* Remove harsh borders for cards, use subtle border or shadow */
+.card, .dh, .sdh, .phc, .gc, .gsc, .tc, .xpp, .clm, .sbanner, .qcard, .pcard {
+  border: 1px solid var(--border);
+}
+
 button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
 input  { font: inherit; color: inherit; }
 svg    { display: block; }
