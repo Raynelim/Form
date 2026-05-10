@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form — Stats</title>
+<link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+<div class="phone">
+
+  <div class="status-bar">
+    <span class="sb-time" id="sbTime">9:41</span>
+    <span class="sb-icons">&#x25CF;&#x25CF;&#x25CF; WiFi &#x25AE;&#x25AE;&#x25AE;</span>
+  </div>
+
+  <header class="topbar">
+    <div class="tb-left">
+      <span class="tb-greeting" id="tbGreet">good morning</span>
+      <span class="tb-name">Stats</span>
+    </div>
+    <div class="tb-right">
+      <div class="tb-streak">
+        <span class="tb-streak-ic">&#x25CA;</span>
+        <span class="tb-streak-n">7</span>
+      </div>
+      <a class="tb-avatar" href="profile.html">&#x25C8;</a>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- Stat selector pills -->
+    <div class="section-head">
+      <span class="lbl">select stat</span>
+    </div>
+    <div style="display:flex;gap:7px;margin-bottom:20px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none" id="statPills"></div>
+
+    <!-- Stat detail header -->
+    <button class="back-btn" id="sdBack" onclick="history.back()">&#x2190; Stats</button>
+
+    <div class="sdh">
+      <div class="sdh-tint" id="sdTint"></div>
+      <div class="sdh-wm"   id="sdWm"></div>
+      <div class="sdh-inner">
+        <div class="sdh-ic" id="sdIc"></div>
+        <div style="flex:1">
+          <div class="sd-name" id="sdTitle"></div>
+          <span class="lbl">stat detail</span>
+          <div class="sd-xpb" id="sdXpB"></div>
+          <div class="sd-xps" id="sdXpS"></div>
+          <div class="xb-track" style="height:5px">
+            <div class="xb-fill" id="sdXpF" style="height:5px"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:5px">
+            <span class="lbl">progress in grade</span>
+            <span class="lbl" id="sdPct"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activities -->
+    <div class="section-head"><span class="lbl">log activity</span></div>
+    <div class="act-list" id="actGrid"></div>
+
+    <div class="divider"></div>
+
+    <!-- Recent sessions -->
+    <div class="section-head"><span class="lbl">recent sessions</span></div>
+    <div class="card">
+      <div class="sess-list" id="sessList">
+        <div class="sess-row">
+          <div>
+            <div class="sess-name">Read: Atomic Habits</div>
+            <span class="lbl">1.4&#xD7; PB &nbsp;&#xB7;&nbsp; Today</span>
+          </div>
+          <span class="sess-xp">+87 XP</span>
+        </div>
+        <div class="sess-row">
+          <div>
+            <div class="sess-name dim">Duolingo &#x2014; French</div>
+            <span class="lbl">1.1&#xD7; &nbsp;&#xB7;&nbsp; Yesterday</span>
+          </div>
+          <span class="sess-xp">+63 XP</span>
+        </div>
+        <div class="sess-row">
+          <div>
+            <div class="sess-name dim">Coursera lesson</div>
+            <span class="lbl">1.6&#xD7; global &nbsp;&#xB7;&nbsp; Mon</span>
+          </div>
+          <span class="sess-xp">+110 XP</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <a class="bn-item" href="dashboard.html"><span class="bn-ic">&#x2302;</span><span class="bn-label">Home</span></a>
+    <a class="bn-item active" href="stat.html"><span class="bn-ic">&#x25C8;</span><span class="bn-label">Stats</span></a>
+    <a class="bn-item" href="log.html"><span class="bn-ic">&#x2295;</span><span class="bn-label">Log</span></a>
+    <a class="bn-item" href="quests.html"><span class="bn-ic">&#x25FB;</span><span class="bn-label">Quests</span></a>
+    <a class="bn-item" href="profile.html"><span class="bn-ic">&#x25C9;</span><span class="bn-label">Profile</span></a>
+    <a class="bn-item" href="leaderboard.html"><span class="bn-ic">&#x25B3;</span><span class="bn-label">Ranks</span></a>
+  </nav>
+
+</div>
+
+<script src="js/form.js"></script>
+<script>
+  // Read stat from URL param
+  const params = new URLSearchParams(window.location.search);
+  curStat = params.get('stat') || 'INT';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Build stat selector pills
+    const pillsEl = document.getElementById('statPills');
+    if (pillsEl) {
+      pillsEl.innerHTML = Object.entries(SM).map(([code, m]) => `
+        <a href="stat.html?stat=${code}"
+           style="flex-shrink:0;display:inline-flex;align-items:center;gap:6px;
+                  padding:7px 14px;border-radius:99px;text-decoration:none;
+                  font-family:var(--font-m);font-size:9px;font-weight:700;letter-spacing:.08em;
+                  background:${code === curStat ? m.dim : 'var(--s1)'};
+                  border:1.5px solid ${code === curStat ? m.col : 'var(--border)'};
+                  color:${code === curStat ? m.col : 'var(--t3)'}">
+          <span style="font-size:13px;line-height:1">${m.g}</span>${code}
+        </a>`
+      ).join('');
+    }
+    renderSD(curStat);
+  });
+</script>
+</body>
+</html>

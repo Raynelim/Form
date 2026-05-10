@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form — Daily Quests</title>
+<link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+<div class="phone">
+
+  <div class="status-bar">
+    <span class="sb-time" id="sbTime">9:41</span>
+    <span class="sb-icons">&#x25CF;&#x25CF;&#x25CF; WiFi &#x25AE;&#x25AE;&#x25AE;</span>
+  </div>
+
+  <header class="topbar">
+    <div class="tb-left">
+      <span class="tb-greeting" id="tbGreet">good morning</span>
+      <span class="tb-name">Daily Quests</span>
+    </div>
+    <div class="tb-right">
+      <div class="tb-streak">
+        <span class="tb-streak-ic">&#x25CA;</span>
+        <span class="tb-streak-n">7</span>
+      </div>
+      <a class="tb-avatar" href="profile.html">&#x25C8;</a>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px">
+      <div class="pg-title" style="margin-bottom:0">Daily Quests</div>
+      <span class="lbl" id="qDate"></span>
+    </div>
+
+    <!-- Streak banner -->
+    <div class="streak-banner">
+      <div>
+        <div class="st">&#x25CA; 7-DAY STREAK</div>
+        <div class="ss">Complete all 3 for +200 Bonus XP</div>
+      </div>
+      <div style="text-align:center">
+        <div class="sm">&times;1.25</div>
+        <span class="lbl">xp today</span>
+      </div>
+    </div>
+
+    <!-- Quest cards -->
+    <div id="qCards"></div>
+
+    <!-- Claim block -->
+    <div class="clm" id="clm">
+      <div class="clmt" id="clmT"></div>
+      <div class="clmm" id="clmM"></div>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <a class="bn-item" href="dashboard.html"><span class="bn-ic">&#x2302;</span><span class="bn-label">Home</span></a>
+    <a class="bn-item" href="stat.html"><span class="bn-ic">&#x25C8;</span><span class="bn-label">Stats</span></a>
+    <a class="bn-item" href="log.html"><span class="bn-ic">&#x2295;</span><span class="bn-label">Log</span></a>
+    <a class="bn-item active" href="quests.html"><span class="bn-ic">&#x25FB;</span><span class="bn-label">Quests</span></a>
+    <a class="bn-item" href="profile.html"><span class="bn-ic">&#x25C9;</span><span class="bn-label">Profile</span></a>
+    <a class="bn-item" href="leaderboard.html"><span class="bn-ic">&#x25B3;</span><span class="bn-label">Ranks</span></a>
+  </nav>
+
+</div>
+
+<script src="js/form.js"></script>
+</body>
+</html>

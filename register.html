@@ -3,28 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Form — Log In</title>
+<title>Form — Register</title>
 <link rel="stylesheet" href="css/form.css">
 </head>
 <body>
 <div class="phone">
 
-  <!-- Status bar -->
   <div class="status-bar">
     <span class="sb-time" id="sbTime">9:41</span>
     <span class="sb-icons">&#x25CF;&#x25CF;&#x25CF; WiFi &#x25AE;&#x25AE;&#x25AE;</span>
   </div>
 
-  <!-- Auth screen — no topbar, no bottom nav -->
   <div class="auth-screen">
 
-    <!-- Logo -->
     <div class="auth-logo">Form</div>
     <div class="auth-tagline">Track yourself. Level up.</div>
 
-    <!-- Card -->
     <div class="auth-card">
-      <div class="auth-card-title">Welcome back</div>
+      <div class="auth-card-title">Create account</div>
+
+      <div class="field-wrap">
+        <label class="field-label" for="username">Username</label>
+        <input class="field-input" id="username" type="text" placeholder="ALEX_01" autocomplete="username">
+      </div>
 
       <div class="field-wrap">
         <label class="field-label" for="email">Email</label>
@@ -33,29 +34,26 @@
 
       <div class="field-wrap">
         <label class="field-label" for="password">Password</label>
-        <input class="field-input" id="password" type="password" placeholder="••••••••" autocomplete="current-password">
+        <input class="field-input" id="password" type="password" placeholder="••••••••" autocomplete="new-password">
       </div>
 
-      <div style="text-align:right;margin-bottom:18px">
-        <span style="font-family:var(--font-m);font-size:9px;color:var(--sage);cursor:pointer;letter-spacing:.08em">
-          FORGOT PASSWORD?
-        </span>
+      <div class="field-wrap" style="margin-bottom:20px">
+        <label class="field-label" for="confirm">Confirm Password</label>
+        <input class="field-input" id="confirm" type="password" placeholder="••••••••" autocomplete="new-password">
       </div>
 
-      <button class="cta-btn" onclick="handleLogin()">Log In</button>
+      <button class="cta-btn" onclick="handleRegister()">Create Account</button>
     </div>
 
     <div class="auth-switch">
-      Don't have an account? <a href="register.html">Register</a>
+      Already have an account? <a href="index.html">Log in</a>
     </div>
 
   </div>
 
 </div>
 
-<script src="js/form.js"></script>
 <script>
-  // Clock for status bar
   function tickAuth() {
     const now = new Date(), h = now.getHours(), m = now.getMinutes();
     const el = document.getElementById('sbTime');
@@ -64,14 +62,25 @@
   tickAuth();
   setInterval(tickAuth, 30000);
 
-  function handleLogin() {
+  function handleRegister() {
+    const username = document.getElementById('username').value.trim();
     const email    = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
-    if (!email || !password) {
+    const confirm  = document.getElementById('confirm').value;
+
+    if (!username || !email || !password || !confirm) {
       showError('Please fill in all fields.');
       return;
     }
-    // Simulate login — redirect to dashboard
+    if (password !== confirm) {
+      showError('Passwords do not match.');
+      return;
+    }
+    if (password.length < 8) {
+      showError('Password must be at least 8 characters.');
+      return;
+    }
+    // Simulate registration — redirect to dashboard
     window.location.href = 'dashboard.html';
   }
 
@@ -81,16 +90,13 @@
       err = document.createElement('div');
       err.id = 'authError';
       err.style.cssText =
-        'font-family:var(--font-m);font-size:9px;color:#C0392B;' +
+        'font-family:"Share Tech Mono",monospace;font-size:9px;color:#C0392B;' +
         'letter-spacing:.08em;text-align:center;margin-top:10px;padding:8px 12px;' +
         'background:#FDF0F0;border:1px solid #F5D5D3;border-radius:8px;';
       document.querySelector('.auth-card').appendChild(err);
     }
     err.textContent = msg;
   }
-
-  // Remove DOMContentLoaded renders from form.js since this page has no app screens
-  document.addEventListener('DOMContentLoaded', () => {}, true);
 </script>
 </body>
 </html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form — Log Session</title>
+<link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+<div class="phone">
+
+  <div class="status-bar">
+    <span class="sb-time" id="sbTime">9:41</span>
+    <span class="sb-icons">&#x25CF;&#x25CF;&#x25CF; WiFi &#x25AE;&#x25AE;&#x25AE;</span>
+  </div>
+
+  <header class="topbar">
+    <div class="tb-left">
+      <span class="tb-greeting" id="tbGreet">good morning</span>
+      <span class="tb-name">Log Session</span>
+    </div>
+    <div class="tb-right">
+      <div class="tb-streak">
+        <span class="tb-streak-ic">&#x25CA;</span>
+        <span class="tb-streak-n">7</span>
+      </div>
+      <a class="tb-avatar" href="profile.html">&#x25C8;</a>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <a class="back-btn" id="lgBack" href="stat.html">&#x2190; Back</a>
+    <div class="pg-title">Log Session</div>
+
+    <!-- Stat selector -->
+    <span class="lbl" style="display:block;margin-bottom:10px">stat</span>
+    <div class="stabs" id="lgTabs"></div>
+
+    <!-- Activity name -->
+    <span class="lbl" style="display:block;margin-bottom:8px">activity name</span>
+    <input class="ifield" id="actIn" placeholder="e.g. Language Study" type="text" oninput="updateXP()">
+
+    <!-- Duration -->
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:6px">
+      <span class="lbl">duration</span>
+      <div class="dur-display" style="margin:0">
+        <span class="dur-num" id="durN">45</span>
+        <span class="dur-unit">min</span>
+      </div>
+    </div>
+    <input class="dur-slider" id="durS" type="range" min="5" max="120" value="45">
+    <div style="display:flex;justify-content:space-between;margin-bottom:20px">
+      <span class="lbl">5</span>
+      <span class="lbl">30</span>
+      <span class="lbl">60</span>
+      <span class="lbl">90</span>
+      <span class="lbl">120</span>
+    </div>
+
+    <!-- Verification tiers -->
+    <span class="lbl" style="display:block;margin-bottom:10px">verification &middot; multiplier</span>
+    <div class="tier-row" id="tRow"></div>
+
+    <!-- XP preview -->
+    <div class="xp-preview">
+      <div>
+        <span class="lbl" style="display:block;margin-bottom:3px">estimated xp</span>
+        <span class="lbl" id="xpBrk"></span>
+      </div>
+      <span class="xp-preview-num" id="xpNum">+198</span>
+    </div>
+
+    <!-- CTA -->
+    <button class="cta-btn" id="lgCta" onclick="submitLog()">LOG SESSION</button>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <a class="bn-item" href="dashboard.html"><span class="bn-ic">&#x2302;</span><span class="bn-label">Home</span></a>
+    <a class="bn-item" href="stat.html"><span class="bn-ic">&#x25C8;</span><span class="bn-label">Stats</span></a>
+    <a class="bn-item active" href="log.html"><span class="bn-ic">&#x2295;</span><span class="bn-label">Log</span></a>
+    <a class="bn-item" href="quests.html"><span class="bn-ic">&#x25FB;</span><span class="bn-label">Quests</span></a>
+    <a class="bn-item" href="profile.html"><span class="bn-ic">&#x25C9;</span><span class="bn-label">Profile</span></a>
+    <a class="bn-item" href="leaderboard.html"><span class="bn-ic">&#x25B3;</span><span class="bn-label">Ranks</span></a>
+  </nav>
+
+</div>
+
+<script src="js/form.js"></script>
+<script>
+  // Read stat from URL param
+  const params = new URLSearchParams(window.location.search);
+  logStat = params.get('stat') || 'INT';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderLog();
+  });
+
+  function submitLog() {
+    const activity = document.getElementById('actIn').value.trim();
+    if (!activity) {
+      document.getElementById('actIn').style.borderColor = '#C0392B';
+      document.getElementById('actIn').focus();
+      return;
+    }
+    // Simulate log — go back to stat page
+    window.location.href = 'stat.html?stat=' + logStat;
+  }
+</script>
+</body>
+</html>
