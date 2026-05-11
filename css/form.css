@@ -322,30 +322,58 @@ a   { text-decoration: none; color: inherit; }
   justify-content: center;
   padding: 32px 24px;
   background: var(--bg);
+  position: relative;
+  overflow: hidden;
+  background-image: url('../images/zen-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  filter: brightness(0.9);
 }
+
+.auth-bg-svg {
+  display: none;
+}
+
 .auth-logo {
   font-family: var(--font-m);
   font-size: 36px;
-  color: var(--sage);
+  color: var(--t1);
   letter-spacing: .2em;
   text-transform: uppercase;
   margin-bottom: 6px;
+  z-index: 10;
+  position: relative;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
 }
+
 .auth-tagline {
   font-family: var(--font-d);
   font-size: 14px;
-  color: var(--t3);
+  color: var(--t2);
   letter-spacing: .04em;
   margin-bottom: 36px;
   font-style: italic;
+  z-index: 10;
+  position: relative;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.6);
 }
+
 .auth-card {
   width: 100%;
-  background: var(--s1);
-  border: 1px solid var(--border);
+  background: rgba(245, 242, 236, 0.);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(208, 203, 188, 0.6);
   border-radius: 18px;
   padding: 24px 22px;
   margin-bottom: 16px;
+  z-index: 10;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 .auth-card-title {
   font-family: var(--font-d);
@@ -388,10 +416,12 @@ a   { text-decoration: none; color: inherit; }
   font-size: 14px;
   color: var(--t2);
   text-align: center;
+  z-index: 10;
+  position: relative;
 }
 .auth-switch a {
   color: var(--sage);
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
 }
 .auth-switch a:hover { color: var(--sage-d); }
