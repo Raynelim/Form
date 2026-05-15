@@ -50,25 +50,23 @@
   --nav-h:  68px;
   --top-h:  58px;
   --stat-h: 50px;
-  --phone-max-h: 92vh;
-  --phone-width: 370px;
-  --phone-padding-v: 4vh;
 }
 
 /* ── Reset ────────────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { height: 100%; }
+
+/* Lock the outer viewport — no page-level scroll ever */
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
 body {
-  min-height: 100vh;
   font-family: var(--font-d);
   -webkit-font-smoothing: antialiased;
   background: #C8C2B2;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding-top: var(--phone-padding-v);
-  padding-bottom: var(--phone-padding-v);
-  overflow: auto;
+  align-items: center;  /* vertically center the phone */
 }
 button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
 input, textarea { font: inherit; color: inherit; }
@@ -76,27 +74,45 @@ svg { display: block; }
 a   { text-decoration: none; color: inherit; }
 
 /* ── Phone shell ──────────────────────────────────────── */
+/* Scales to fit the viewport height with a comfortable margin.
+   Width scales proportionally to match a real phone aspect ratio.
+   Only .content scrolls — nothing else. */
 .phone {
-  width: var(--phone-width);
-  height: var(--phone-max-h);
-  max-height: 100vh;
+  /* Use viewport height as the constraint */
+  height: calc(100vh - 48px);        /* 24px margin top + bottom */
+  width: calc((100vh - 48px) * 0.462); /* 9:19.5 phone ratio ≈ 0.462 */
+
+  /* Hard caps so it never gets too big on huge monitors */
+  max-height: 812px;
+  max-width:  375px;
+
+  /* Minimum so it's usable on small laptop screens */
+  min-height: 560px;
+  min-width:  260px;
+
   background: var(--bg);
-  border-radius: 48px;
+  border-radius: calc(((100vh - 48px) * 0.462) * 0.12); /* proportional radius */
   overflow: hidden;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   box-shadow:
-    0 0 0 1px #000000,
-    0 0 0 9px #000000,
-    0 0 0 11px #000000,
-    0 48px 96px rgba(0,0,0,.35),
-    0 12px 32px rgba(0,0,0,.2);
-  position: relative;
+    0 0 0 1px #B8B3A6,
+    0 0 0 7px #A8A398,
+    0 0 0 9px #96918A,
+    0 32px 64px rgba(0,0,0,.35),
+    0 8px 24px rgba(0,0,0,.2);
 }
+
+/* On real phones — fill the screen */
 @media (max-width: 430px) {
-  body  { display: block; padding: 0; background: var(--bg); overflow: auto; }
-  .phone { width: 100vw; height: 96vh; max-height: 96vh; border-radius: 0; box-shadow: none; margin: 2vh 0; }
+  html, body { overflow: auto; }
+  body  { display: block; background: var(--bg); }
+  .phone {
+    width: 100%; height: auto; min-height: 100vh;
+    max-width: none; max-height: none;
+    border-radius: 0; box-shadow: none;
+  }
 }
 
 /* ── Status bar ──────────────────────────────────────── */
@@ -171,22 +187,9 @@ a   { text-decoration: none; color: inherit; }
   overflow-x: hidden;
   padding: 18px 18px calc(var(--nav-h) + 16px);
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--s3) transparent;
+  scrollbar-width: none;
 }
-.content::-webkit-scrollbar {
-  width: 6px;
-}
-.content::-webkit-scrollbar-track {
-  background: transparent;
-}
-.content::-webkit-scrollbar-thumb {
-  background: var(--s3);
-  border-radius: 3px;
-}
-.content::-webkit-scrollbar-thumb:hover {
-  background: var(--s2);
-}
+.content::-webkit-scrollbar { display: none; }
 
 /* ── Screen visibility ───────────────────────────────── */
 .screen        { display: none; }
@@ -322,58 +325,30 @@ a   { text-decoration: none; color: inherit; }
   justify-content: center;
   padding: 32px 24px;
   background: var(--bg);
-  position: relative;
-  overflow: hidden;
-  background-image: url('../images/zen-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  filter: brightness(0.9);
 }
-
-.auth-bg-svg {
-  display: none;
-}
-
 .auth-logo {
   font-family: var(--font-m);
   font-size: 36px;
-  color: var(--t1);
+  color: var(--sage);
   letter-spacing: .2em;
   text-transform: uppercase;
   margin-bottom: 6px;
-  z-index: 10;
-  position: relative;
-  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
 }
-
 .auth-tagline {
   font-family: var(--font-d);
   font-size: 14px;
-  color: var(--t2);
+  color: var(--t3);
   letter-spacing: .04em;
   margin-bottom: 36px;
   font-style: italic;
-  z-index: 10;
-  position: relative;
-  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.6);
 }
-
 .auth-card {
   width: 100%;
-  background: rgba(245, 242, 236, 0.);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(208, 203, 188, 0.6);
+  background: var(--s1);
+  border: 1px solid var(--border);
   border-radius: 18px;
   padding: 24px 22px;
   margin-bottom: 16px;
-  z-index: 10;
-  position: relative;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 .auth-card-title {
   font-family: var(--font-d);
@@ -416,12 +391,10 @@ a   { text-decoration: none; color: inherit; }
   font-size: 14px;
   color: var(--t2);
   text-align: center;
-  z-index: 10;
-  position: relative;
 }
 .auth-switch a {
   color: var(--sage);
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
 }
 .auth-switch a:hover { color: var(--sage-d); }

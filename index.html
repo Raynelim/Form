@@ -3,88 +3,225 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Form — Log In</title>
-<link rel="stylesheet" href="css/form.css">
+<title>Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;font-family:'Barlow Condensed',sans-serif;-webkit-font-smoothing:antialiased}
+body{background:#8B9E8A;display:flex;justify-content:center;align-items:center}
+button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
+input{font:inherit;color:inherit}
+.phone{
+  height:calc(100vh - 48px);
+  width:calc((100vh - 48px) * 0.462);
+  max-height:812px;max-width:375px;
+  min-height:560px;min-width:260px;
+  border-radius:calc(((100vh - 48px) * 0.462) * 0.12);
+  overflow:hidden;position:relative;display:flex;flex-direction:column;
+  box-shadow:0 0 0 1px rgba(255,255,255,.15),0 0 0 7px rgba(0,0,0,.25),0 0 0 9px rgba(0,0,0,.15),0 32px 64px rgba(0,0,0,.4);
+}
+@media(max-width:430px){
+  html,body{overflow:auto}
+  body{display:block;background:#5C7A5A}
+  .phone{width:100%;height:auto;min-height:100vh;max-width:none;max-height:none;border-radius:0;box-shadow:none}
+}
+.status-bar{position:absolute;top:0;left:0;right:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:20}
+.sb-time{font-family:'Share Tech Mono',monospace;font-size:12px;font-weight:700;color:rgba(255,255,255,.9)}
+.sb-icons{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(255,255,255,.75);letter-spacing:.04em}
+.zen-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.auth-wrap{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px 24px}
+.auth-logo{font-family:'Barlow Condensed',sans-serif;font-size:clamp(64px,18vw,88px);font-weight:800;letter-spacing:-.02em;line-height:.9;color:rgba(255,255,255,.95);text-shadow:0 2px 24px rgba(0,0,0,.18),0 1px 4px rgba(0,0,0,.22);margin-bottom:4px;text-align:center}
+.auth-tagline{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:32px;text-align:center}
+.glass-card{width:100%;background:rgba(255,255,255,.22);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,.38);border-radius:18px;padding:24px 22px 20px;box-shadow:0 4px 24px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.45)}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:rgba(255,255,255,.95);letter-spacing:.01em;margin-bottom:18px}
+.field-wrap{margin-bottom:12px}
+.field-label{display:block;font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:6px}
+.field-input{width:100%;height:46px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:10px;padding:0 14px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:500;color:rgba(255,255,255,.95);outline:none;transition:background .2s,border-color .2s,box-shadow .2s;-webkit-appearance:none}
+.field-input::placeholder{color:rgba(255,255,255,.4)}
+.field-input:focus{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.7);box-shadow:0 0 0 3px rgba(255,255,255,.12)}
+.forgot{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.1em;color:rgba(255,255,255,.6);cursor:pointer;text-align:right;display:block;margin-bottom:18px;text-decoration:none}
+.forgot:hover{color:rgba(255,255,255,.9)}
+.cta-btn{width:100%;height:48px;background:rgba(255,255,255,.92);border:none;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#3A5C42;cursor:pointer;transition:background .15s,transform .1s;box-shadow:0 2px 12px rgba(0,0,0,.14)}
+.cta-btn:hover{background:rgba(255,255,255,1)}
+.cta-btn:active{transform:scale(.98)}
+.auth-switch{margin-top:16px;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(255,255,255,.65);text-align:center}
+.auth-switch a{color:rgba(255,255,255,.92);font-weight:600;text-decoration:none;cursor:pointer}
+.auth-switch a:hover{color:#fff}
+.auth-error{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.08em;color:#FECACA;text-align:center;margin-top:10px;padding:8px 12px;background:rgba(220,38,38,.18);border:1px solid rgba(220,38,38,.3);border-radius:8px;display:none}
+.auth-error.visible{display:block}
+</style>
 </head>
 <body>
 <div class="phone">
 
-  <!-- Auth screen — no topbar, no bottom nav -->
-  <div class="auth-screen">
+  <div class="status-bar">
+    <span class="sb-time" id="sbTime">9:41</span>
+    <span class="sb-icons">&#x25CF;&#x25CF;&#x25CF; &#x25AE;&#x25AE;&#x25AE;</span>
+  </div>
 
-    <!-- Logo -->
-    <div class="auth-logo">Form</div>
-    <div class="auth-tagline">Track yourself. Level up.</div>
+  <svg class="zen-bg" viewBox="0 0 375 812" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#C8A882"/>
+        <stop offset="35%" stop-color="#D4956A"/>
+        <stop offset="65%" stop-color="#B87754"/>
+        <stop offset="100%" stop-color="#7A9E78"/>
+      </linearGradient>
+      <radialGradient id="sun-glow" cx="50%" cy="0%" r="60%">
+        <stop offset="0%" stop-color="#FFE4A0" stop-opacity=".55"/>
+        <stop offset="100%" stop-color="#FFE4A0" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="sun-disc" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFF5C8"/>
+        <stop offset="60%" stop-color="#FFD580"/>
+        <stop offset="100%" stop-color="#FFAE42" stop-opacity=".8"/>
+      </radialGradient>
+      <linearGradient id="mtn-far" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#A06B8C" stop-opacity=".55"/>
+        <stop offset="100%" stop-color="#7A5C6E" stop-opacity=".75"/>
+      </linearGradient>
+      <linearGradient id="mtn-mid" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#6B8F6A"/>
+        <stop offset="100%" stop-color="#4A6B48"/>
+      </linearGradient>
+      <linearGradient id="hill-near" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3D5C3B"/>
+        <stop offset="100%" stop-color="#2A3D28"/>
+      </linearGradient>
+      <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2E4A2C"/>
+        <stop offset="100%" stop-color="#1E3020"/>
+      </linearGradient>
+      <linearGradient id="mist" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#E8D4B8" stop-opacity="0"/>
+        <stop offset="45%" stop-color="#E8D4B8" stop-opacity=".12"/>
+        <stop offset="60%" stop-color="#E8D4B8" stop-opacity=".06"/>
+        <stop offset="100%" stop-color="#E8D4B8" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
 
-    <!-- Card -->
-    <div class="auth-card">
-      <div class="auth-card-title">Welcome back</div>
+    <rect width="375" height="812" fill="url(#sky)"/>
+    <rect width="375" height="400" fill="url(#sun-glow)"/>
+    <circle cx="187" cy="178" r="38" fill="url(#sun-disc)" opacity=".92"/>
+    <circle cx="187" cy="178" r="52" fill="none" stroke="#FFD580" stroke-width="1" opacity=".28"/>
+    <circle cx="187" cy="178" r="66" fill="none" stroke="#FFD580" stroke-width="1" opacity=".14"/>
+
+    <path d="M0,380 L40,310 L80,345 L115,280 L150,320 L185,265 L220,308 L258,272 L295,318 L330,285 L375,330 L375,480 L0,480 Z" fill="url(#mtn-far)" opacity=".7"/>
+    <path d="M-10,430 L30,355 L65,390 L100,330 L140,378 L175,318 L212,360 L248,325 L285,368 L318,338 L375,375 L385,540 L-10,540 Z" fill="url(#mtn-mid)"/>
+    <path d="M100,330 L115,348 L125,338 L140,378 L135,365 Z" fill="rgba(255,255,255,.18)"/>
+    <path d="M175,318 L190,340 L200,330 L212,360 L207,348 Z" fill="rgba(255,255,255,.14)"/>
+    <path d="M248,325 L262,346 L272,336 L285,368 Z" fill="rgba(255,255,255,.12)"/>
+
+    <path d="M-10,520 Q40,470 90,490 Q140,510 188,478 Q236,446 285,472 Q330,496 385,468 L385,680 L-10,680 Z" fill="url(#hill-near)"/>
+    <rect y="650" width="375" height="162" fill="url(#ground)"/>
+
+    <g opacity=".45" fill="#3A5C38">
+      <polygon points="22,500 30,462 38,500"/>
+      <polygon points="18,502 30,456 42,502"/>
+      <polygon points="36,498 46,464 56,498"/>
+      <polygon points="32,500 46,458 60,500"/>
+      <polygon points="90,492 98,458 106,492"/>
+      <polygon points="86,494 98,452 110,494"/>
+      <polygon points="268,490 276,456 284,490"/>
+      <polygon points="264,492 276,450 288,492"/>
+      <polygon points="330,496 340,460 350,496"/>
+      <polygon points="326,498 340,454 354,498"/>
+      <polygon points="348,494 358,462 368,494"/>
+    </g>
+
+    <g opacity=".72" fill="#2E4A2C">
+      <polygon points="0,560 14,508 28,560"/>
+      <polygon points="-4,562 14,500 32,562"/>
+      <polygon points="24,556 40,508 56,556"/>
+      <polygon points="20,558 40,500 60,558"/>
+      <polygon points="52,552 66,510 80,552"/>
+      <polygon points="295,554 309,508 323,554"/>
+      <polygon points="291,556 309,500 327,556"/>
+      <polygon points="318,552 334,508 350,552"/>
+      <polygon points="344,550 360,506 376,550"/>
+      <polygon points="340,552 360,498 380,552"/>
+    </g>
+
+    <g fill="#1E3020">
+      <polygon points="-8,650 10,570 28,650"/>
+      <polygon points="-14,652 10,558 34,652"/>
+      <polygon points="28,642 50,552 72,642"/>
+      <polygon points="22,644 50,542 78,644"/>
+      <polygon points="62,638 82,558 102,638"/>
+      <polygon points="108,634 132,548 156,634"/>
+      <polygon points="102,636 132,538 162,636"/>
+      <rect x="8" y="642" width="4" height="20" fill="#162818" opacity=".8"/>
+      <rect x="48" y="636" width="5" height="22" fill="#162818" opacity=".8"/>
+      <rect x="80" y="632" width="4" height="20" fill="#162818" opacity=".8"/>
+      <rect x="130" y="628" width="5" height="22" fill="#162818" opacity=".8"/>
+      <polygon points="220,636 246,548 272,636"/>
+      <polygon points="214,638 246,538 278,638"/>
+      <polygon points="266,632 290,550 314,632"/>
+      <polygon points="304,638 330,552 356,638"/>
+      <polygon points="298,640 330,542 362,640"/>
+      <polygon points="350,642 370,562 390,642"/>
+      <rect x="244" y="630" width="5" height="20" fill="#162818" opacity=".8"/>
+      <rect x="288" y="626" width="4" height="20" fill="#162818" opacity=".8"/>
+      <rect x="328" y="632" width="5" height="22" fill="#162818" opacity=".8"/>
+    </g>
+
+    <rect width="375" height="812" fill="url(#mist)"/>
+    <rect y="310" width="375" height="40" fill="rgba(255,230,180,.08)" opacity=".8"/>
+  </svg>
+
+  <div class="auth-wrap">
+    <div class="auth-logo">FORM</div>
+    <div class="auth-tagline">Track yourself &nbsp;&middot;&nbsp; Level up</div>
+
+    <div class="glass-card">
+      <div class="card-title">Welcome back</div>
 
       <div class="field-wrap">
         <label class="field-label" for="email">Email</label>
         <input class="field-input" id="email" type="email" placeholder="you@example.com" autocomplete="email">
       </div>
 
-      <div class="field-wrap">
+      <div class="field-wrap" style="margin-bottom:8px">
         <label class="field-label" for="password">Password</label>
-        <input class="field-input" id="password" type="password" placeholder="••••••••" autocomplete="current-password">
+        <input class="field-input" id="password" type="password" placeholder="&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;" autocomplete="current-password">
       </div>
 
-      <div style="text-align:right;margin-bottom:18px">
-        <span style="font-family:var(--font-m);font-size:9px;color:var(--sage);cursor:pointer;letter-spacing:.08em">
-          FORGOT PASSWORD?
-        </span>
-      </div>
-
+      <a class="forgot" href="#">Forgot password?</a>
       <button class="cta-btn" onclick="handleLogin()">Log In</button>
+      <div class="auth-error" id="authError"></div>
     </div>
 
     <div class="auth-switch">
-      Don't have an account? <a href="register.html">Register</a>
+      No account? <a href="register.html">Register here</a>
     </div>
-
   </div>
 
 </div>
 
-<script src="js/form.js"></script>
 <script>
-  // Clock for status bar
-  function tickAuth() {
-    const now = new Date(), h = now.getHours(), m = now.getMinutes();
-    const el = document.getElementById('sbTime');
-    if (el) el.textContent = (h % 12 || 12) + ':' + (m < 10 ? '0' : '') + m;
-  }
-  tickAuth();
-  setInterval(tickAuth, 30000);
+function tick(){
+  var now=new Date(),h=now.getHours(),m=now.getMinutes();
+  var el=document.getElementById('sbTime');
+  if(el) el.textContent=(h%12||12)+':'+(m<10?'0':'')+m;
+}
+tick(); setInterval(tick,30000);
 
-  function handleLogin() {
-    const email    = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
-    if (!email || !password) {
-      showError('Please fill in all fields.');
-      return;
-    }
-    // Simulate login — redirect to dashboard
-    window.location.href = 'dashboard.html';
+function handleLogin(){
+  var email=document.getElementById('email').value.trim();
+  var password=document.getElementById('password').value;
+  var errEl=document.getElementById('authError');
+  errEl.classList.remove('visible');
+  if(!email||!password){
+    errEl.textContent='PLEASE FILL IN ALL FIELDS';
+    errEl.classList.add('visible');
+    return;
   }
+  window.location.href='dashboard.html';
+}
 
-  function showError(msg) {
-    let err = document.getElementById('authError');
-    if (!err) {
-      err = document.createElement('div');
-      err.id = 'authError';
-      err.style.cssText =
-        'font-family:var(--font-m);font-size:9px;color:#C0392B;' +
-        'letter-spacing:.08em;text-align:center;margin-top:10px;padding:8px 12px;' +
-        'background:#FDF0F0;border:1px solid #F5D5D3;border-radius:8px;';
-      document.querySelector('.auth-card').appendChild(err);
-    }
-    err.textContent = msg;
-  }
-
-  // Remove DOMContentLoaded renders from form.js since this page has no app screens
-  document.addEventListener('DOMContentLoaded', () => {}, true);
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter') handleLogin();
+});
 </script>
 </body>
 </html>
